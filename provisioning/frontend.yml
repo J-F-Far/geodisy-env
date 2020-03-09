@@ -1,0 +1,10 @@
+# Frontend Playbook
+---
+- hosts:
+    - frontend-host
+  roles:
+    - httpd
+    - node
+    - solr
+    - geoblacklight
+

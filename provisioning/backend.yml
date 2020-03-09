@@ -1,0 +1,8 @@
+# Backend Playbook
+---
+- hosts: 
+    - backend-host
+  roles:
+    - geoserver
+    - postgis
+

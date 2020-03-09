@@ -1,0 +1,68 @@
+# Frontend Tasks
+---
+- name: Install system packages
+  become: yes
+  yum:
+    update_cache: yes
+    state: present
+    name: "{{ item }}"
+  with_items:
+    - mod_ssl
+    - openssl
+    - httpd
+    - epel-release
+    - certbot
+    - python2-certbot-apache
+  tags:
+    - install-httpd
+    - packages
+ 
+- name: Make server directory
+  become: yes 
+  file:
+    state: directory
+    path: "/var/www/{{ domain }}/html"
+    #owner:
+    #group:
+  tags:
+    - install-httpd
+
+- name: Install VirtualHost config
+  become: yes
+  template:
+    src: "vhost.conf.j2"
+    dest: "/etc/httpd/conf.d/{{ domain }}.conf"
+  tags:
+    - install-httpd
+
+- name: Run Certbot
+  become: yes
+  shell: "certbot --apache -d {{ domain }}"
+  when: 
+    - "inventory_hostname != 'localhost'"
+  tags:
+    - install-httpd
+
+- name: Install Proxy config
+  become: yes
+  template:
+    src: "proxy.conf.j2"
+    dest: "/etc/httpd/conf.d/{{ domain }}-le-ssl.conf"
+  tags:
+    - install-httpd
+
+- name: Install Apache systemd service
+  become: yes
+  systemd:
+    name: httpd
+    daemon_reload: yes
+    enabled: yes
+    state: started
+  tags:
+    - install-httpd
+
+#########################################################
+# TODO the provided Apache config doesn't seem finished #
+#########################################################
+
+
