@@ -7,5 +7,6 @@
     - httpd
     - node
     - solr
+    - ruby
     - geoblacklight
 

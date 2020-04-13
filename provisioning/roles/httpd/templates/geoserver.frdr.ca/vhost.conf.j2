@@ -1,0 +1,8 @@
+<VirtualHost *:80> 
+  ServerName {{ inventory_hostname }} 
+  DocumentRoot /var/www/{{ inventory_hostname }}/html 
+  ErrorLog /etc/httpd/logs/error_log 
+  
+
+</VirtualHost> 
+ 

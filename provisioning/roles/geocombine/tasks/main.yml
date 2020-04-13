@@ -1,0 +1,40 @@
+---
+# Install GeoCombine application
+- name: Create GeoCombine directory
+  become: yes
+  file:
+    state: directory
+    path: "{{ geocombine_dir }}"
+    owner: "geoblack"
+    group: "geoblack"
+  tags:
+    - install-geocombine
+
+- name: Check out GeoCombine code
+  become: yes
+  become_user: geoblack
+  git:
+    repo: https://github.com/OpenGeoMetadata/GeoCombine.git
+    dest: /home/geoblack/GeoCombine
+    force: yes
+  tags:
+    - install-geocombine
+
+- name: Install GeoCombine bundle
+  become: yes
+  become_user: geoblack
+  shell: 
+    cmd: "source ~/.bashrc && bundle install"
+    chdir: ~/GeoCombine
+  tags:
+    - install-geocombine
+
+- name: Install GeoCombine rake file
+  become: yes
+  become_user: geoblack
+  template:
+    src: geo_combine.rake.j2
+    dest: ~/GeoCombine/lib/tasks/geo_combine.rake
+  tags:
+    - install-geocombine
+

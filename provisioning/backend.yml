@@ -4,6 +4,10 @@
     - backend-host
   roles:
     - hosts
+    - httpd
+    - ruby
+    - geocombine
     - geoserver
     - postgis
     - geodisy
+
