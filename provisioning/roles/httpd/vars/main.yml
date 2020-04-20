@@ -1,4 +1,6 @@
 ---
 ## are there just the inventory hostnames?
-domain: "localhost" 
-backend_domain: "localhost"
+domain: "geotest.frdr-dfdr.ca" 
+backend_domain: "geoservertest.frdr-dfdr.ca"
+
+admin_email_address: "joel.farthing@computecanada.ca"

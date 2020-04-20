@@ -232,15 +232,28 @@
     group: geoblack
   tags: install-geoblacklight
 
-- name: Install GeoBlacklight Rails application
+#- name: Install GeoBlacklight Rails application
+#  become: yes
+#  become_user: geoblack
+#  ignore_errors: yes
+#  shell:
+#    chdir: "/var/www/geoblacklight"
+#    cmd: "source ~/.bashrc && RBENV_VERSION={{ ruby_ver }} rbenv exec rails _5.2.3_ new geodisy -m https://raw.githubusercontent.com/geoblacklight/geoblacklight/master/template.rb"  
+#  tags:
+#    - install-geoblacklight
+
+- name: Checkout custom GBL git repo
   become: yes
   become_user: geoblack
-  ignore_errors: yes
-  shell:
-    chdir: "/var/www/geoblacklight"
-    cmd: "source ~/.bashrc && RBENV_VERSION={{ ruby_ver }} rbenv exec rails _5.2.3_ new geodisy -m https://raw.githubusercontent.com/geoblacklight/geoblacklight/master/template.rb"  
+  git:
+    dest: "{{ geoblacklight_dir }}/geodisy"
+    clone: yes
+    repo: "{{ geoblacklight_git_repo }}"
+    #repo: "https://github.com/J-F-Far/geodisy-geoblacklight.git"
+    force: yes
   tags:
     - install-geoblacklight
+    - git-test
 
 - name: Create GeoBlacklight solr core
   become: yes
@@ -322,7 +335,7 @@
 - name: Install Geoblacklight systemd service file
   become: yes
   template:
-    src: geoblacklight.service.j2
+    src: "{{ inventory_hostname }}/geoblacklight.service.j2"
     dest: /etc/systemd/system/geoblacklight.service
   tags:
     - install-geoblacklight

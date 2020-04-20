@@ -1,0 +1,9 @@
+# Dump the hostvars
+---
+- hosts: all
+  tasks:
+  - name: Debug hostvars
+    debug:
+      msg: "{{ hostvars }}"
+    tags: debug_info
+

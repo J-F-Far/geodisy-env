@@ -3,7 +3,7 @@
 - name: Install hosts file 
   become: yes
   copy:
-    src: hosts 
+    src: "{{ inventory_hostname}}/hosts"
     dest: /etc/hosts 
     owner: root
     group: root

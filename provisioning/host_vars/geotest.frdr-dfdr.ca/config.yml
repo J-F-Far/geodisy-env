@@ -5,7 +5,7 @@ geoblacklight_git_repo: "https://github.com/J-F-Far/geodisy-geoblacklight.git"
 
 #ruby_ver: "2.6.1"
 ruby_ver: "2.6.5"
-rails_env: "production"
+rails_env: "development"
 
 # Apache Solr
 solr:
