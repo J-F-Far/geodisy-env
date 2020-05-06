@@ -66,27 +66,12 @@
 # Run Frontend Apache tasks
 - name: Run Certbot
   become: yes
-  shell: "certbot certonly --apache -d {{ item }} -m {{ admin_email_address }} --agree-tos --non-interactive --dry-run"
-  #when: 
-  #  - "inventory_hostname == hostvars[inventory_hostname]['groups']['geofront_host'][0]"
+  shell: "certbot certonly --apache -d {{ item }} -m {{ admin_email_address }} --agree-tos --non-interactive"
   with_items:
     - "{{ inventory_hostname }}"
     - "{{ inventory_hostname_alias }}"
   tags:
     - httpd
-    - debug-cert
-
-#- name: Run Certbot
-#  become: yes
-#  shell: "certbot --apache -d {{ inventory_hostname }}"
-#  when: 
-#    - "inventory_hostname != 'localhost'"
-#  tags:
-#    - httpd
-#    - install-cert
-
-#########################################################
-# TODO the provided Apache config doesn't seem finished #
-#########################################################
+    - cert
 
 
