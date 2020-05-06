@@ -5,8 +5,8 @@ require 'find'
 
 namespace :geocombine do
   commit_within = (ENV['SOLR_COMMIT_WITHIN'] || 5000).to_i
-  ogm_path = ENV['OGM_PATH'] || 'tmp/opengeometadata'
-  solr_url = ENV['SOLR_URL'] || 'http://geo.frdr.ca:8983/solr/{{ geoblacklight_core_name }}'
+  ogm_path = ENV['OGM_PATH'] || '/var/www/{{ inventory_hostname }}/html/geodisy/'
+  solr_url = ENV['SOLR_URL'] || 'http://{{ hostvars[groups['geofront_host'][0]]['inventory_hostname'] }}:8983/solr/{{ geoblacklight_core_name }}'
   whitelist = %w[
     https://github.com/OpenGeoMetadata/big-ten.git
   ]

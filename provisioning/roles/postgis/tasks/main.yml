@@ -23,7 +23,7 @@
     - postgresql12-devel
     - postgis30_12
     - postgis30_12-client
-    - postgis30_12-debuginfo 
+#    - postgis30_12-debuginfo 
     - postgis30_12-devel
     - postgis30_12-docs
     - postgis30_12-gui

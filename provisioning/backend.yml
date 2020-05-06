@@ -1,7 +1,7 @@
 # Backend Playbook
 ---
 - hosts: 
-    - backend-host
+    - geoback_host
   roles:
     - hosts
     - httpd

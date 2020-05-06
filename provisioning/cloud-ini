@@ -1,7 +1,12 @@
-[frontend-host]
-
+[geofront_host]
 geo.frdr.ca
 
-[backend-host]
+[geofront_host:vars]
+inventory_hostname_alias=geo.frdr-dfdr.ca
 
+[geoback_host]
 geoserver.frdr.ca
+
+[geoback_host:vars]
+inventory_hostname_alias=geoserver.frdr-dfdr.ca
+

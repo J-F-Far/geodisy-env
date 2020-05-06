@@ -1,8 +1,5 @@
 # Frontend Tasks
 ---
-
-# import the tasks which correspond to current host
-
 - name: Install EPEL yum repo first
   become: yes
   yum:
@@ -10,7 +7,7 @@
     state: present
     name: "epel-release"
   tags:
-    - install-httpd
+    - httpd
     - packages
 
 - name: Install system packages
@@ -23,11 +20,10 @@
     - mod_ssl
     - openssl
     - httpd
-    - epel-release
     - certbot
     - python2-certbot-apache
   tags:
-    - install-httpd
+    - httpd
     - packages
  
 - name: Make server directory
@@ -38,24 +34,15 @@
     #owner:
     #group:
   tags:
-    - install-httpd
+    - httpd
 
 - name: Install VirtualHost config
   become: yes
   template:
-    src: "{{ inventory_hostname }}/vhost.conf.j2"
+    src: "{{ group_names[0] }}.conf.j2"
     dest: "/etc/httpd/conf.d/{{ inventory_hostname }}.conf"
   tags:
-    - install-httpd
-
-#- name: Install Proxy config
-#  become: yes
-#  template:
-#    src: "proxy.conf.j2"
-#    dest: "/etc/httpd/conf.d/{{ inventory_hostname }}-le-ssl.conf"
-#  tags:
-#    - install-httpd
-
+    - httpd
 
 - name: Allow Proxy to connect outbound
   become: yes
@@ -64,7 +51,7 @@
     state: yes
     persistent: yes
   tags:
-    - install-httpd
+    - httpd
 
 - name: Install Apache systemd service
   become: yes
@@ -74,16 +61,20 @@
     enabled: yes
     state: started
   tags:
-    - install-httpd
+    - httpd
 
 # Run Frontend Apache tasks
 - name: Run Certbot
   become: yes
-  shell: "certbot --apache -d {{ inventory_hostname }} -m {{ admin_email_address }} --agree-tos --non-interactive"
-  when: 
-    - "inventory_hostname == hostvars[inventory_hostname]['groups']['frontend-host'][0]"
+  shell: "certbot certonly --apache -d {{ item }} -m {{ admin_email_address }} --agree-tos --non-interactive --dry-run"
+  #when: 
+  #  - "inventory_hostname == hostvars[inventory_hostname]['groups']['geofront_host'][0]"
+  with_items:
+    - "{{ inventory_hostname }}"
+    - "{{ inventory_hostname_alias }}"
   tags:
-    - install-httpd
+    - httpd
+    - debug-cert
 
 #- name: Run Certbot
 #  become: yes
@@ -91,7 +82,7 @@
 #  when: 
 #    - "inventory_hostname != 'localhost'"
 #  tags:
-#    - install-httpd
+#    - httpd
 #    - install-cert
 
 #########################################################

@@ -1,9 +1,13 @@
 ---
+apache:
+  servername: "{{ inventory_hostname }}"
+  serveralias: "{{ inventory_hostname_alias }}"
+  geoserver_proxy: "{{ hostvars[groups['geoback_host'][0]]['inventory_hostname'] }}" 
+
 geoblacklight_dir: "/var/www/geoblacklight"
 geoblacklight_core_name: "geoblacklight-core"
-geoblacklight_git_repo: "https://github.com/J-F-Far/geodisy-geoblacklight.git"
+geoblacklight_git_repo: "https://github.com/frdr-dfdr/geodisy-geoblacklight.git"
 
-#ruby_ver: "2.6.1"
 ruby_ver: "2.6.5"
 rails_env: "production"
 

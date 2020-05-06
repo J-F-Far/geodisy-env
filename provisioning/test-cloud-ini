@@ -1,8 +1,12 @@
-[frontend-host]
+[geofront_host]
+geotest.frdr.ca
 
-geotest.frdr-dfdr.ca
+[geofront_host:vars]
+inventory_hostname_alias=geotest.frdr-dfdr.ca
 
-[backend-host]
+[geoback_host]
+geoservertest.frdr.ca
 
-geoservertest.frdr-dfdr.ca
+[geoback_host:vars]
+inventory_hostname_alias=geoservertest.frdr-dfdr.ca
 

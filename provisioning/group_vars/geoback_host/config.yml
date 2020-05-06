@@ -7,6 +7,11 @@
 #  app_dir: "geoserver-{{ geoserver.version }}"
 #  full_dir: "{{ geoserver.base_dir}}/{{ geoserver.app_dir }}"
 
+# Apache
+apache:
+  servername: "{{ inventory_hostname }}"
+  serveralias: "{{ inventory_hostname_alias }}"
+
 # Ruby/GeoCombine variables
 ruby_ver: "2.6.5"
 geocombine_dir: "/home/geoblack/GeoCombine"

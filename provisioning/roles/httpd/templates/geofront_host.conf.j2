@@ -1,0 +1,43 @@
+<VirtualHost *:80> 
+  ServerName {{ apache.servername }} 
+  ServerAlias {{ apache.serveralias }} 
+
+  # Rewrite Rules
+  RewriteEngine on
+  RewriteRule "^/(.*)" "https://{{ apache.serveralias }}/$1" [R=301,L] 
+</VirtualHost>
+
+<VirtualHost *:443>
+  ServerName {{ apache.servername }}
+
+  Include /etc/letsencrypt/options-ssl-apache.conf
+  SSLCertificateFile /etc/letsencrypt/live/{{ apache.servername }}/cert.pem
+  SSLCertificateKeyFile /etc/letsencrypt/live/{{ apache.servername }}/privkey.pem
+  SSLCertificateChainFile /etc/letsencrypt/live/{{ apache.servername }}/chain.pem
+
+  RewriteEngine on
+  RewriteRule "^/(.*)" "https://{{ apache.serveralias }}/$1" [R=301,L]
+</VirtualHost> 
+ 
+<VirtualHost *:443> 
+  ServerName {{ apache.serveralias }}  
+  DocumentRoot /var/www/{{ apache.serveralias }}/html 
+  ErrorLog /etc/httpd/logs/error_log 
+  CustomLog /etc/httpd/logs/access_log combined 
+ 
+  RequestHeader set X-Forwarded-Proto "https"  
+  
+  # Rewrite requests to /geoserver to backend 
+  ProxyPass        "/geoserver" "http://{{ apache.geoserver_proxy }}:8080/geoserver" 
+  ProxyPassReverse "/geoserver" "http://{{ apache.geoserver_proxy }}:8080/geoserver" 
+ 
+  # Rewrite all other requests to geoblacklight
+  ProxyPass        "/"      "http://localhost:3000/"
+  ProxyPassReverse "/"      "http://localhost:3000/"
+
+  Include /etc/letsencrypt/options-ssl-apache.conf 
+  SSLCertificateFile /etc/letsencrypt/live/{{ apache.serveralias }}/cert.pem 
+  SSLCertificateKeyFile /etc/letsencrypt/live/{{ apache.serveralias }}/privkey.pem 
+  SSLCertificateChainFile /etc/letsencrypt/live/{{ apache.serveralias }}/chain.pem 
+</VirtualHost> 
+

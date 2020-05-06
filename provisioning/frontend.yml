@@ -1,7 +1,7 @@
 # Frontend Playbook
 ---
 - hosts:
-    - frontend-host
+    - geofront_host
   roles:
     - hosts
     - httpd
