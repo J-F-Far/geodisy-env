@@ -66,7 +66,7 @@
 # Run Frontend Apache tasks
 - name: Run Certbot
   become: yes
-  shell: "certbot certonly --apache -d {{ item }} -m {{ admin_email_address }} --agree-tos --non-interactive"
+  shell: "certbot certonly --standalone -d {{ item }} -m {{ admin_email_address }} --agree-tos --non-interactive"
   with_items:
     - "{{ inventory_hostname }}"
     - "{{ inventory_hostname_alias }}"
