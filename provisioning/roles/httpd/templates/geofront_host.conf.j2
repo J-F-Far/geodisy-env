@@ -29,10 +29,6 @@
  
   RequestHeader set X-Forwarded-Proto "https"  
   
-  # Rewrite requests to /geoserver to backend 
-  ProxyPass        "/geoserver" "http://{{ apache.geoserver_proxy }}:8080/geoserver" 
-  ProxyPassReverse "/geoserver" "http://{{ apache.geoserver_proxy }}:8080/geoserver" 
- 
   # Rewrite all other requests to geoblacklight
   ProxyPass        "/"      "http://localhost:3000/"
   ProxyPassReverse "/"      "http://localhost:3000/"

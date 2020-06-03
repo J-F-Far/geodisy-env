@@ -24,4 +24,5 @@ geoserver_app_dir: "geoserver-{{ geoserver_version }}"
 geoserver_full_dir: "{{ geoserver_base_dir}}/{{ geoserver_app_dir }}"
 geoserver_data_dir: "/geodata/geoserver/data"
 
-
+# PostgreSQL/PostGIS
+postgresql_data_dir: /geodata/pgsql

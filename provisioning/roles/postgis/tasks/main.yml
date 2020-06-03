@@ -46,6 +46,14 @@
   tags:
     - install-postgis
 
+- name: Installed systemd service file override
+  become: yes
+  template:
+    src: postgresql-12.service.j2
+    dest: /etc/systemd/system/postgresql-12.service
+  tags:
+    - install-postgis 
+
 - name: Start PostgreSQL systemd service
   become: yes
   systemd:
