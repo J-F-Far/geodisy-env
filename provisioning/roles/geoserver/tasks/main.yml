@@ -44,8 +44,8 @@
 - name: Download GeoServer binary
   become: yes
   get_url:
-    url: http://sourceforge.net/projects/geoserver/files/GeoServer/2.16.0/geoserver-2.16.0-bin.zip  
-    dest: "{{ geoserver_base_dir }}/geoserver-2.16.0-bin.zip"
+    url: "http://sourceforge.net/projects/geoserver/files/GeoServer/{{ geoserver_version }}/geoserver-{{ geoserver_version }}-bin.zip" 
+    dest: "{{ geoserver_base_dir }}/geoserver-{{ geoserver_version }}-bin.zip"
     owner: geoserver
     group: geoserver
     force: no
@@ -55,8 +55,8 @@
 - name: Unpack geoserver .zip
   become: yes
   unarchive:
-    src: "{{ geoserver_base_dir }}/geoserver-2.16.0-bin.zip"
-    dest: "{{ geoserver_base_dir }}" 
+    src: "{{ geoserver_base_dir }}/geoserver-{{ geoserver_version }}-bin.zip"
+    dest: "{{ geoserver_full_dir }}" 
     remote_src: yes
     owner: geoserver
     group: geoserver

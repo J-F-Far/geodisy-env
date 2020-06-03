@@ -18,9 +18,10 @@ geocombine_dir: "/home/geoblack/GeoCombine"
 geoblacklight_core_name: "geoblacklight-core"
 
 # GeoServer
-geoserver_version: "2.16.0"
+geoserver_version: "2.17.0"
 geoserver_base_dir: "/opt/share/geoserver"
 geoserver_app_dir: "geoserver-{{ geoserver_version }}"
 geoserver_full_dir: "{{ geoserver_base_dir}}/{{ geoserver_app_dir }}"
+geoserver_data_dir: "/geodata/geoserver/data"
 
 

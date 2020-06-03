@@ -7,6 +7,7 @@ Type=simple
 User=geoserver
 Group=geoserver
 Environment=GEOSERVER_HOME={{ geoserver_full_dir }}
+Environment=GEOSERVER_DATA_DIR={{ geoserver_data_dir }}
 ExecStart={{ geoserver_full_dir }}/bin/startup.sh
 TimeoutStartSec=0
 
