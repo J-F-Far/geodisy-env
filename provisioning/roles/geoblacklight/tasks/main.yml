@@ -26,6 +26,19 @@
   tags:
     - install-geoblacklight
 
+- name: Install Rails master.key file
+  become: yes
+  become_user: geoblack
+  copy:
+    src: secure_master.key
+    dest: "{{ geoblacklight_dir }}/geodisy/config/master.key"
+    owner: geoblack
+    group: geoblack
+    mode: 0600
+  tags:
+    - install-geoblacklight
+    - test
+
 - name: Create GeoBlacklight solr core
   become: yes
   become_user: solr
