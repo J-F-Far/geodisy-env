@@ -26,6 +26,15 @@
   tags:
     - install-geoblacklight
 
+- name: Bundle Install in geoblacklight repo
+  become: yes
+  become_user: geoblack
+  shell: "source ~/.bashrc && bundle install"
+  args:
+    chdir: "{{ geoblacklight_dir }}/geodisy"  
+  tags:
+    - install-geoblacklight
+
 - name: Install Rails master.key file
   become: yes
   become_user: geoblack
@@ -37,7 +46,6 @@
     mode: 0600
   tags:
     - install-geoblacklight
-    - test
 
 - name: Create GeoBlacklight solr core
   become: yes

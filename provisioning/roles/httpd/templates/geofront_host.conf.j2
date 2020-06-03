@@ -10,7 +10,9 @@
 <VirtualHost *:443>
   ServerName {{ apache.servername }}
 
-  Include /etc/letsencrypt/options-ssl-apache.conf
+  SSLEngine on
+  SSLOptions +StrictRequire
+
   SSLCertificateFile /etc/letsencrypt/live/{{ apache.servername }}/cert.pem
   SSLCertificateKeyFile /etc/letsencrypt/live/{{ apache.servername }}/privkey.pem
   SSLCertificateChainFile /etc/letsencrypt/live/{{ apache.servername }}/chain.pem
@@ -35,7 +37,9 @@
   ProxyPass        "/"      "http://localhost:3000/"
   ProxyPassReverse "/"      "http://localhost:3000/"
 
-  Include /etc/letsencrypt/options-ssl-apache.conf 
+  SSLEngine on
+  SSLOptions +StrictRequire
+
   SSLCertificateFile /etc/letsencrypt/live/{{ apache.serveralias }}/cert.pem 
   SSLCertificateKeyFile /etc/letsencrypt/live/{{ apache.serveralias }}/privkey.pem 
   SSLCertificateChainFile /etc/letsencrypt/live/{{ apache.serveralias }}/chain.pem 

@@ -53,16 +53,6 @@
   tags:
     - httpd
 
-- name: Install Apache systemd service
-  become: yes
-  systemd:
-    name: httpd
-    daemon_reload: yes
-    enabled: yes
-    state: started
-  tags:
-    - httpd
-
 # Run Frontend Apache tasks
 - name: Run Certbot
   become: yes
@@ -74,4 +64,13 @@
     - httpd
     - cert
 
+- name: Install Apache systemd service
+  become: yes
+  systemd:
+    name: httpd
+    daemon_reload: yes
+    enabled: yes
+    state: started
+  tags:
+    - httpd
 

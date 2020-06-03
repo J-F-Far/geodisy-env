@@ -6,7 +6,7 @@
     state: present
     name: https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm 
   tags:
-    - install postgis
+    - install-postgis
     - packages
 
 - name: Install PostGIS packages
@@ -16,6 +16,7 @@
     state: present
     name: "{{ item }}"
   with_items:
+    - centos-release-scl
     - postgresql12
     - postgresql12-server
     - postgresql12-libs
@@ -43,7 +44,7 @@
     cmd: "/usr/pgsql-12/bin/postgresql-12-setup initdb"
   ignore_errors: yes # Error thrown id DB already "init'd"
   tags:
-    - install postgis
+    - install-postgis
 
 - name: Start PostgreSQL systemd service
   become: yes

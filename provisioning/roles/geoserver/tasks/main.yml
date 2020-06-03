@@ -57,6 +57,7 @@
   unarchive:
     src: "{{ geoserver_base_dir }}/geoserver-2.16.0-bin.zip"
     dest: "{{ geoserver_base_dir }}" 
+    remote_src: yes
     owner: geoserver
     group: geoserver
   tags: 
@@ -78,6 +79,7 @@
   unarchive:
     src: "{{ geoserver_base_dir }}/geoserver-{{ geoserver_version }}-importer-plugin.zip"
     dest: "{{ geoserver_full_dir }}/webapps/geoserver/WEB-INF/lib"
+    remote_src: yes
     owner: geoserver
     group: geoserver
   tags:
