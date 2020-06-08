@@ -60,6 +60,7 @@
     remote_src: yes
     owner: geoserver
     group: geoserver
+  when: not ansible_check_mode
   tags: 
     - install-geoserver
 
@@ -82,6 +83,7 @@
     remote_src: yes
     owner: geoserver
     group: geoserver
+  when: not ansible_check_mode
   tags:
     - install-geoserver
 
